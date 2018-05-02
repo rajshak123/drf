@@ -78,11 +78,24 @@ WSGI_APPLICATION = 'profile_project.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE':   'django.db.backends.postgresql',
+        'NAME'  :   'postgres',
+        'HOST'  :   'localhost',
+        'PORT'  :   '5432',
+        'USER'  :   'postgres',
+        'PASSWORD': 'charlie'
     }
 }
-
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379/1",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient"
+        },
+        "KEY_PREFIX": "example"
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
@@ -121,3 +134,4 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
+AUTH_USER_MODEL='profiles_api.UserProfile'
